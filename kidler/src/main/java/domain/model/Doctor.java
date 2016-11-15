@@ -1,11 +1,9 @@
 package domain.model;
 
-import java.math.BigDecimal;
-
 public class Doctor extends Person{
 	
 	private String position;
-	private BigDecimal salary;
+	private int salary;
 	
 	public String getPosition() {
 		return position;
@@ -13,10 +11,10 @@ public class Doctor extends Person{
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public BigDecimal getSalary() {
+	public int getSalary() {
 		return salary;
 	}
-	public void setSalary(BigDecimal salary) {
+	public void setSalary(int salary) {
 		this.salary = salary;
 	}
 
