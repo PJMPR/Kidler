@@ -2,16 +2,16 @@ package domain.model;
 
 public class PatientCard extends Person {
 	
-	private int roomID;
+	private int roomId;
 	private Status status;
 	private String historyOfDiseases;
 	private String ailments;
 	
-	public int getRoomID() {
-		return roomID;
+	public int getRoomId() {
+		return roomId;
 	}
-	public void setRoomID(int roomID) {
-		this.roomID = roomID;
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 	public Status getStatus() {
 		return status;
