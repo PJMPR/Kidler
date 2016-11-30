@@ -4,24 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.mappers.IMapResultSetIntoEntity;
-import dao.repositories.IDoctorRepository;
 import dao.repositories.IPatientCardRepository;
 import dao.uow.IUnitOfWork;
-import domain.model.Doctor;
 import domain.model.PatientCard;
 
 public class PatientCardRepository extends RepositoryBase <PatientCard> implements IPatientCardRepository {
-	private String insertSql = "INSERT INTO patientCard (name, surname, birthDate, personalIdentityNumber, phoneNumber, email, roomId, status, historyOfDiseases, ailments) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	private String selectByIdSql = "SELECT * FROM patientCard WHERE id=?";
-	private String deleteSql = "DELETE FROM patientCard WHERE id=?";
-	private String getAllSql = "SELECT * FROM patientCard";
 	
 	private PreparedStatement getName;
 	private PreparedStatement getSurname;
 	private PreparedStatement getRoomId;
-	private PreparedStatement getStatus;
 	
 	public PatientCardRepository(Connection connection,
 			IMapResultSetIntoEntity <PatientCard> mapper, IUnitOfWork uow) {
@@ -30,7 +25,6 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 			getName = connection.prepareStatement(getNameSql());
 			getSurname = connection.prepareStatement(getSurnameSql());
 			getRoomId= connection.prepareStatement(getRoomIdSql());
-			getStatus = connection.prepareStatement(getStatusSql());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -99,11 +93,6 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 		
 	}
 
-	private String getStatusSql() {
-		// TODO Auto-generated method stub
-		return "SELECT * FROM patientCard where status = ?";
-	}
-
 
 	private String getRoomIdSql() {
 		// TODO Auto-generated method stub
@@ -120,6 +109,60 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 	private String getNameSql() {
 		// TODO Auto-generated method stub
 		return "SELECT * FROM patientCard where name = ?";
+	}
+
+
+	public List<PatientCard> fromName(String name) {
+		// TODO Auto-generated method stub
+		List<PatientCard> patientCard = new ArrayList<PatientCard>();
+		try{
+		getName.setString(1,name);
+		ResultSet resultSet = getName.executeQuery();
+		while(resultSet.next()){
+			patientCard.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return patientCard;
+	}
+
+
+	public List<PatientCard> fromSurname(String surname) {
+		// TODO Auto-generated method stub
+		List<PatientCard> patientCard = new ArrayList<PatientCard>();
+		try{
+		getSurname.setString(1,surname);
+		ResultSet resultSet = getSurname.executeQuery();
+		while(resultSet.next()){
+			patientCard.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return patientCard;
+	}
+
+
+	public List<PatientCard> fromRoomId(int roomId) {
+		// TODO Auto-generated method stub
+		List<PatientCard> patientCard = new ArrayList<PatientCard>();
+		try{
+		getRoomId.setInt(1,roomId);
+		ResultSet resultSet = getRoomId.executeQuery();
+		while(resultSet.next()){
+			patientCard.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return patientCard;
 	}
 	
 }

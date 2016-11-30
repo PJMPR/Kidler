@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import dao.mappers.IMapResultSetIntoEntity;
 import dao.repositories.IDoctorRepository;
@@ -110,6 +113,78 @@ public class DoctorRepository extends RepositoryBase <Doctor> implements IDoctor
 	private String getNameSql() {
 		// TODO Auto-generated method stub
 		return "SELECT * FROM doctor where name = ?";
+	}
+
+
+	public List<Doctor> fromName(String name) {
+		// TODO Auto-generated method stub
+		List<Doctor> doctor = new ArrayList<Doctor>();
+		try{
+		getName.setString(1,name);
+		ResultSet resultSet = getName.executeQuery();
+		while(resultSet.next()){
+		doctor.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return doctor;
+	}
+
+
+	public List<Doctor> fromSurname(String surname) {
+		// TODO Auto-generated method stub
+		List<Doctor> doctor = new ArrayList<Doctor>();
+		try{
+		getSurname.setString(1,surname);
+		ResultSet resultSet = getName.executeQuery();
+		while(resultSet.next()){
+		doctor.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return doctor;
+	}
+
+
+	public List<Doctor> fromBirthDate(Date birthDate) {
+		// TODO Auto-generated method stub
+		List<Doctor> doctor = new ArrayList<Doctor>();
+		try{
+		getBirthDate.setDate(1,(java.sql.Date) birthDate);
+		ResultSet resultSet = getName.executeQuery();
+		while(resultSet.next()){
+		doctor.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return doctor;
+	}
+
+
+	public List<Doctor> fromPosition(String position) {
+		// TODO Auto-generated method stub
+		List<Doctor> doctor = new ArrayList<Doctor>();
+		try{
+		getPosition.setString(1,position);
+		ResultSet resultSet = getName.executeQuery();
+		while(resultSet.next()){
+		doctor.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return doctor;
 	}
 
 	

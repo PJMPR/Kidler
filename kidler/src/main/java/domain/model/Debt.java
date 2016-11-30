@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Debt implements IHaveId{
 	
 	private int id;
-	private int userId;
+	private int patientCardId;
 	private BigDecimal payment;
 	
 	public int getId() {
@@ -14,11 +14,11 @@ public class Debt implements IHaveId{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getUserId() {
-		return userId;
+	public int getPatientCardId() {
+		return patientCardId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setPatientCardId(int patientCardId) {
+		this.patientCardId = patientCardId;
 	}
 	public BigDecimal getPayment() {
 		return payment;

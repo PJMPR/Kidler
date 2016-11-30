@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.mappers.IMapResultSetIntoEntity;
 import dao.repositories.IOperationRepository;
@@ -93,6 +95,44 @@ public class OperationRepository extends RepositoryBase <Operation> implements I
 	private String getOperationHall() {
 		// TODO Auto-generated method stub
 		return "SELECT * FROM operation where patientCardId = ?";
+	}
+
+
+
+	public List<Operation> fromOperationHall(int operationHall) {
+		// TODO Auto-generated method stub
+		List<Operation> operation = new ArrayList<Operation>();
+		try{
+		getOperationHall.setInt(1,operationHall);
+		ResultSet resultSet = getOperationHall.executeQuery();
+		while(resultSet.next()){
+			operation.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return operation;
+	}
+
+
+
+	public List<Operation> fromPatientCardId(int patientCardId) {
+		// TODO Auto-generated method stub
+		List<Operation> operation = new ArrayList<Operation>();
+		try{
+		getPatientCardId.setInt(1,patientCardId);
+		ResultSet resultSet = getPatientCardId.executeQuery();
+		while(resultSet.next()){
+			operation.add(mapper.map(resultSet));
+		}
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		return operation;
 	}
 
 	
