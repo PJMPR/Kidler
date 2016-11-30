@@ -1,6 +1,6 @@
 package domain.model;
 
-public class Operation {
+public class Operation implements IHaveId{
 	
 	private int id;
 	private int operationHall;

@@ -5,91 +5,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dao.mappers.IMapResultSetIntoEntity;
+import dao.repositories.IDoctorRepository;
+import dao.repositories.IPatientCardRepository;
+import dao.uow.IUnitOfWork;
+import domain.model.Doctor;
 import domain.model.PatientCard;
 
-public class PatientCardRepository extends BaseRepository {
+public class PatientCardRepository extends RepositoryBase <PatientCard> implements IPatientCardRepository {
 	private String insertSql = "INSERT INTO patientCard (name, surname, birthDate, personalIdentityNumber, phoneNumber, email, roomId, status, historyOfDiseases, ailments) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private String selectByIdSql = "SELECT * FROM patientCard WHERE id=?";
 	private String deleteSql = "DELETE FROM patientCard WHERE id=?";
 	private String getAllSql = "SELECT * FROM patientCard";
 	
-	PreparedStatement insert;
-	PreparedStatement selectById;
-	PreparedStatement delete;
-	PreparedStatement getAll;
+	private PreparedStatement getName;
+	private PreparedStatement getSurname;
+	private PreparedStatement getRoomId;
+	private PreparedStatement getStatus;
 	
-	public PatientCardRepository(Connection connection) {
-		super(connection);
+	public PatientCardRepository(Connection connection,
+			IMapResultSetIntoEntity <PatientCard> mapper, IUnitOfWork uow) {
+		super(connection,mapper, uow);
 		try {
-			insert = connection.prepareStatement(insertSql);
-			selectById = connection.prepareStatement(selectByIdSql);
-			delete = connection.prepareStatement(deleteSql);
-			getAll = connection.prepareStatement(getAllSql);
+			getName = connection.prepareStatement(getNameSql());
+			getSurname = connection.prepareStatement(getSurnameSql());
+			getRoomId= connection.prepareStatement(getRoomIdSql());
+			getStatus = connection.prepareStatement(getStatusSql());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public PatientCard get(int PatientCardId){
-		try{
-			selectById.setInt(1, PatientCardId);
-			ResultSet rs = selectById.executeQuery();
-			while(rs.next()){
-				PatientCard result = new PatientCard();
-				result.setId(rs.getInt("id"));
-				result.setName(rs.getString("name"));
-				result.setSurname(rs.getString("surname"));
-				result.setBirthDate(rs.getDate("birthDate"));
-				result.setPersonalIdentityNumber(rs.getString("personalIdentityNumber"));
-				result.setPhoneNumber(rs.getString("phoneNumber"));
-				result.setEmail(rs.getString("email"));
-				result.setRoomId(rs.getInt("roomId"));
-				//result.setStatus(rs.getString("status"));
-				result.setHistoryOfDiseases(rs.getString("historyOfDiseases"));
-				result.setAilments(rs.getString("Ailments"));
-				
-				return result;
-			}
-		}
-		catch(SQLException ex){
-			ex.printStackTrace();
-		}
-		return null;
-		
-	}
-	
-	public void add(PatientCard patientCard) {
-		try {
-			insert.setString(1, patientCard.getName());
-			insert.setString(2, patientCard.getSurname());
-			insert.setDate(3, patientCard.getBirthDate());
-			insert.setString(4, patientCard.getPersonalIdentityNumber());
-			insert.setString(5, patientCard.getPhoneNumber());
-			insert.setString(6, patientCard.getEmail());
-			insert.setInt(7, patientCard.getRoomId());
-			//insert.setObject(8, patientCard.getStatus());
-			insert.setString(9, patientCard.getHistoryOfDiseases());
-			insert.setString(10, patientCard.getAilments());
-			insert.executeUpdate();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-	}
 
-	public void delete(int patientCardId)
-	{
-		try {
-			delete.setInt(1, patientCardId);
-			delete.executeQuery();
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	
 	@Override
 	protected String createTableSql() {
 		return "" + "CREATE TABLE patientCard("
@@ -107,7 +55,72 @@ public class PatientCardRepository extends BaseRepository {
 		return "patientCard";
 	}
 
-	
+	@Override
+	protected String insertSql() {
+		// TODO Auto-generated method stub
+		return "INSERT INTO patientCard (name, surname, birthDate, personalIdentityNumber, phoneNumber, email, roomId, status, historyOfDiseases, ailments) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	}
+
+	@Override
+	protected String updateSql() {
+		// TODO Auto-generated method stub
+		return "UPDATE patientCard SET (name, surname, birthDate, personalIdentityNumber, phoneNumber, email, roomId, status, historyOfDiseases, ailments)=(?,?,?,?,?,?,?,?,?,?) where id=?";
+	}
+
+	@Override
+	protected void setUpdate(PatientCard entity) throws SQLException {
+		// TODO Auto-generated method stub
+		update.setString(1, entity.getName());
+		update.setString(2, entity.getSurname());
+		update.setDate(3, entity.getBirthDate());
+		update.setString(4, entity.getPersonalIdentityNumber());
+		update.setString(5, entity.getPhoneNumber());
+		update.setString(6, entity.getEmail());
+		update.setInt(7, entity.getRoomId());
+		update.setObject(8, entity.getStatus());
+		update.setString(9, entity.getHistoryOfDiseases());
+		update.setString(10, entity.getAilments());
+		
+	}
+
+	@Override
+	protected void setInsert(PatientCard entity) throws SQLException {
+		// TODO Auto-generated method stub
+		insert.setString(1, entity.getName());
+		insert.setString(2, entity.getSurname());
+		insert.setDate(3, entity.getBirthDate());
+		insert.setString(4, entity.getPersonalIdentityNumber());
+		insert.setString(5, entity.getPhoneNumber());
+		insert.setString(6, entity.getEmail());
+		insert.setInt(7, entity.getRoomId());
+		insert.setObject(8, entity.getStatus());
+		insert.setString(9, entity.getHistoryOfDiseases());
+		insert.setString(10, entity.getAilments());
+		
+	}
+
+	private String getStatusSql() {
+		// TODO Auto-generated method stub
+		return "SELECT * FROM patientCard where status = ?";
+	}
+
+
+	private String getRoomIdSql() {
+		// TODO Auto-generated method stub
+		return "SELECT * FROM patientCard where roomId = ?";
+	}
+
+
+	private String getSurnameSql() {
+		// TODO Auto-generated method stub
+		return "SELECT * FROM patientCard where surname = ?";
+	}
+
+
+	private String getNameSql() {
+		// TODO Auto-generated method stub
+		return "SELECT * FROM patientCard where name = ?";
+	}
 	
 }
 

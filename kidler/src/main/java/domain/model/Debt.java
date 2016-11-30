@@ -2,7 +2,7 @@ package domain.model;
 
 import java.math.BigDecimal;
 
-public class Debt {
+public class Debt implements IHaveId{
 	
 	private int id;
 	private int userId;

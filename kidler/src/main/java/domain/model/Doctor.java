@@ -1,6 +1,6 @@
 package domain.model;
 
-public class Doctor extends Person{
+public class Doctor extends Person implements IHaveId{
 	
 	private String position;
 	private int salary;

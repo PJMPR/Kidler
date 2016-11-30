@@ -1,6 +1,6 @@
 package domain.model;
 
-public class PatientCard extends Person {
+public class PatientCard extends Person implements IHaveId{
 	
 	private int roomId;
 	private Status status;

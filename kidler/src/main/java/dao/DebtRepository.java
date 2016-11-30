@@ -5,70 +5,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dao.mappers.IMapResultSetIntoEntity;
+import dao.repositories.IDebtRepository;
+import dao.uow.IUnitOfWork;
 import domain.model.Debt;
 
-public class DebtRepository extends BaseRepository {
-	private String insertSql = "INSERT INTO debt (userId, payment) VALUES (?,?)";
-	private String selectByIdSql = "SELECT * FROM debt WHERE id=?";
-	private String deleteSql = "DELETE FROM debt WHERE id=?";
-	private String getAllSql = "SELECT * FROM debt";
+
+
+public class DebtRepository extends RepositoryBase <Debt> implements IDebtRepository {
+
+	private PreparedStatement getUserId;
 	
-	PreparedStatement insert;
-	PreparedStatement selectById;
-	PreparedStatement delete;
-	PreparedStatement getAll;
-	
-	public DebtRepository(Connection connection) {
-		super(connection);
+	public DebtRepository(Connection connection,
+			IMapResultSetIntoEntity <Debt> mapper, IUnitOfWork uow) {
+		super(connection,mapper, uow);
 		try {
-			insert = connection.prepareStatement(insertSql);
-			selectById = connection.prepareStatement(selectByIdSql);
-			delete = connection.prepareStatement(deleteSql);
-			getAll = connection.prepareStatement(getAllSql);
+			getUserId = connection.prepareStatement(getUserIdSql());
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Debt get(int debtId){
-		try{
-			selectById.setInt(1, debtId);
-			ResultSet rs = selectById.executeQuery();
-			while(rs.next()){
-				Debt result = new Debt();
-				result.setId(rs.getInt("id"));
-				result.setUserId(rs.getInt("userId"));
-				result.setPayment(rs.getBigDecimal("payment"));
-				
-				return result;
-			}
-		}
-		catch(SQLException ex){
-			ex.printStackTrace();
-		}
-		return null;
-		
-	}
-	
-	public void add(Debt debt) {
-		try {
-			insert.setInt(1, debt.getUserId());
-			insert.setBigDecimal(3, debt.getPayment());
-			insert.executeUpdate();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	public void delete(int debtId)
-	{
-		try {
-			delete.setInt(1, debtId);
-			delete.executeQuery();
-		}
-		catch(SQLException e)
-		{
 			e.printStackTrace();
 		}
 	}
@@ -87,6 +41,38 @@ public class DebtRepository extends BaseRepository {
 		return "debt";
 	}
 
+	@Override
+	protected String insertSql() {
+		// TODO Auto-generated method stub
+		return "INSERT INTO debt (userId, payment) VALUES (?,?)";
+	}
+
+	@Override
+	protected String updateSql() {
+		// TODO Auto-generated method stub
+		return "UPDATE debt SET (userId, payment)=(?,?) where id=?";
+	}
+
+	@Override
+	protected void setUpdate(Debt entity) throws SQLException {
+		// TODO Auto-generated method stub
+		update.setInt(1, entity.getUserId());
+		update.setBigDecimal(2, entity.getPayment());
+		
+		
+	}
+
+	@Override
+	protected void setInsert(Debt entity) throws SQLException {
+		// TODO Auto-generated method stub
+		insert.setInt(1, entity.getUserId());
+		insert.setBigDecimal(2, entity.getPayment());
+	}
+
+	protected String getUserIdSql() {
+		// TODO Auto-generated method stub
+		return "SELECT * FROM debt where userId = ?";
+	}
 	
 	
 }
