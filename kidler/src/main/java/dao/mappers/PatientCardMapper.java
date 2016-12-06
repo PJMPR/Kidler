@@ -12,7 +12,7 @@ public class PatientCardMapper implements IMapResultSetIntoEntity<PatientCard>{
 		patientCard.setId(rs.getInt("id"));
 		patientCard.setName(rs.getString("name"));
 		patientCard.setSurname(rs.getString("surname"));
-		patientCard.setBirthDate(rs.getDate("birthDate"));
+		patientCard.setBirthDate(rs.getString("birthDate"));
 		patientCard.setPersonalIdentityNumber(rs.getString("personalIdentityNumber"));
 		patientCard.setPhoneNumber(rs.getString("phoneNumber"));
 		patientCard.setEmail(rs.getString("email"));

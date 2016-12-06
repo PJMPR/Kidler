@@ -1,13 +1,11 @@
 package domain.model;
 
-import java.sql.Date;
-
 public class Person implements IHaveId{
 
 	private int id;
     private String name;
     private String surname;
-    private Date birthDate;
+    private String birthDate;
     private String personalIdentityNumber;
     private String phoneNumber;
     private String email;   
@@ -35,12 +33,12 @@ public class Person implements IHaveId{
         this.surname = surname;
     }
 
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date date) {
-		this.birthDate = date;
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public String getPersonalIdentityNumber() {

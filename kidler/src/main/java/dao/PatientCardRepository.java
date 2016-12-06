@@ -66,7 +66,7 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 		// TODO Auto-generated method stub
 		update.setString(1, entity.getName());
 		update.setString(2, entity.getSurname());
-		update.setDate(3, entity.getBirthDate());
+		update.setString(3, entity.getBirthDate());
 		update.setString(4, entity.getPersonalIdentityNumber());
 		update.setString(5, entity.getPhoneNumber());
 		update.setString(6, entity.getEmail());
@@ -82,7 +82,7 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 		// TODO Auto-generated method stub
 		insert.setString(1, entity.getName());
 		insert.setString(2, entity.getSurname());
-		insert.setDate(3, entity.getBirthDate());
+		insert.setString(3, entity.getBirthDate());
 		insert.setString(4, entity.getPersonalIdentityNumber());
 		insert.setString(5, entity.getPhoneNumber());
 		insert.setString(6, entity.getEmail());

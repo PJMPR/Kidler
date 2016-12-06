@@ -12,7 +12,7 @@ public class DoctorMapper implements IMapResultSetIntoEntity<Doctor>{
 		doctor.setId(rs.getInt("id"));
 		doctor.setName(rs.getString("name"));
 		doctor.setSurname(rs.getString("surname"));
-		doctor.setBirthDate(rs.getDate("birthDate"));
+		doctor.setBirthDate(rs.getString("birthDate"));
 		doctor.setPersonalIdentityNumber(rs.getString("personalIdentityNumber"));
 		doctor.setPhoneNumber(rs.getString("phoneNumber"));
 		doctor.setEmail(rs.getString("email"));
