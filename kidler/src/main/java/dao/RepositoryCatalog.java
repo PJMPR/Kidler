@@ -1,41 +1,59 @@
 package dao;
 
+import java.sql.Connection;
+
+import dao.mappers.DebtMapper;
+import dao.mappers.DoctorMapper;
+import dao.mappers.EnumDictionaryMapper;
+import dao.mappers.OperationMapper;
+import dao.mappers.PatientCardMapper;
+import dao.mappers.PersonMapper;
 import dao.repositories.IDebtRepository;
 import dao.repositories.IDoctorRepository;
 import dao.repositories.IEnumDictionariesRepository;
 import dao.repositories.IOperationRepository;
 import dao.repositories.IPatientCardRepository;
+import dao.repositories.IPersonRepository;
 import dao.repositories.IRepositoryCatalog;
+import dao.uow.IUnitOfWork;
 
 public class RepositoryCatalog implements IRepositoryCatalog {
 
+	private Connection connection;
+	private IUnitOfWork uow;
+
+	public RepositoryCatalog(Connection connection,IUnitOfWork uow)
+	{
+		this.connection = connection;
+		this.uow = uow;
+	}
+
 	public IDebtRepository Debt() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DebtRepository(connection, new DebtMapper(), uow);
 	}
 
 	public IDoctorRepository Doctor() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DoctorRepository(connection, new DoctorMapper(), uow);
 	}
 
 	public IEnumDictionariesRepository EnumDictionary() {
-		// TODO Auto-generated method stub
-		return null;
+		return new EnumDictionaryRepository(connection, new EnumDictionaryMapper(), uow);
 	}
 
 	public IOperationRepository Operation() {
-		// TODO Auto-generated method stub
-		return null;
+		return new OperationRepository(connection, new OperationMapper(), uow);
 	}
 
 	public IPatientCardRepository PatientCard() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PatientCardRepository(connection, new PatientCardMapper(), uow);
 	}
 
+	public IPersonRepository Person() {
+		return new PersonRepository(connection, new PersonMapper(), uow);
+	}
+	
 	public void save() {
-		// TODO Auto-generated method stub
+		uow.saveChanges();
 
 	}
 

@@ -7,5 +7,6 @@ public interface IRepositoryCatalog {
 	public IEnumDictionariesRepository EnumDictionary();
 	public IOperationRepository Operation();
 	public IPatientCardRepository PatientCard();
+	public IPersonRepository Person();
 	public void save();
 }
