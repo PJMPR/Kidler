@@ -24,7 +24,7 @@ public class DoctorRepository extends RepositoryBase <Doctor> implements IDoctor
 		super(connection,mapper, uow);
 		try {
 			getPosition = connection.prepareStatement(getPositionSql());
-			getPersonId = connection.prepareStatement(getPositionSql());
+			getPersonId = connection.prepareStatement(getPersonIdSql());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
