@@ -2,16 +2,12 @@ package dao;
 
 import java.sql.Connection;
 
-import dao.mappers.DebtMapper;
 import dao.mappers.DoctorMapper;
 import dao.mappers.EnumDictionaryMapper;
-import dao.mappers.OperationMapper;
 import dao.mappers.PatientCardMapper;
 import dao.mappers.PersonMapper;
-import dao.repositories.IDebtRepository;
 import dao.repositories.IDoctorRepository;
 import dao.repositories.IEnumDictionariesRepository;
-import dao.repositories.IOperationRepository;
 import dao.repositories.IPatientCardRepository;
 import dao.repositories.IPersonRepository;
 import dao.repositories.IRepositoryCatalog;
@@ -21,6 +17,10 @@ public class RepositoryCatalog implements IRepositoryCatalog {
 
 	private Connection connection;
 	private IUnitOfWork uow;
+	private EnumDictionaryMapper enumDictionaryMapper = new EnumDictionaryMapper();
+	private DoctorMapper doctorMapper = new DoctorMapper();
+	private PatientCardMapper patientCardMapper = new PatientCardMapper();
+	private PersonMapper personMapper = new PersonMapper();
 
 	public RepositoryCatalog(Connection connection,IUnitOfWork uow)
 	{
@@ -28,28 +28,20 @@ public class RepositoryCatalog implements IRepositoryCatalog {
 		this.uow = uow;
 	}
 
-	public IDebtRepository Debt() {
-		return new DebtRepository(connection, new DebtMapper(), uow);
+	public IDoctorRepository Doctors() {
+		return new DoctorRepository(connection, doctorMapper, uow);
 	}
 
-	public IDoctorRepository Doctor() {
-		return new DoctorRepository(connection, new DoctorMapper(), uow);
+	public IEnumDictionariesRepository Dictionaries() {
+		return new EnumDictionaryRepository(connection, enumDictionaryMapper, uow);
 	}
 
-	public IEnumDictionariesRepository EnumDictionary() {
-		return new EnumDictionaryRepository(connection, new EnumDictionaryMapper(), uow);
+	public IPatientCardRepository PatientCards() {
+		return new PatientCardRepository(connection, patientCardMapper, uow);
 	}
 
-	public IOperationRepository Operation() {
-		return new OperationRepository(connection, new OperationMapper(), uow);
-	}
-
-	public IPatientCardRepository PatientCard() {
-		return new PatientCardRepository(connection, new PatientCardMapper(), uow);
-	}
-
-	public IPersonRepository Person() {
-		return new PersonRepository(connection, new PersonMapper(), uow);
+	public IPersonRepository People() {
+		return new PersonRepository(connection, personMapper, uow);
 	}
 	
 	public void save() {

@@ -12,43 +12,70 @@ import domain.model.Doctor;
 import domain.model.PatientCard;
 import domain.model.Person;
 import domain.model.Status;
+import domain.model.StatusDoctor;
 
 public class App 
 {
     public static void main( String[] args )
     {
-    	Person person = new Person();
-    	person.setName("Jarek");
-    	person.setSurname("Kowalski");
-    	person.setBirthDate("1967-09-12");
-    	person.setPersonalIdentityNumber("670912315");
-    	person.setPhoneNumber("161787555");
-    	person.setEmail("Kowalski@email.com");
-        
-        Doctor doctor = new Doctor();
-        doctor.setPosition("Main Surgeon");
-        doctor.setSalary(10000);
+    	Person person1 = new Person();
+    	Person person2 = new Person();
+    	
+    	
+    	person1.setName("Kamil");
+    	person1.setSurname("Kowalski");
+    	person1.setBirthDate("10-09-1966");
+    	person1.setPersonalIdentityNumber("660910157");
+    	person1.setPhoneNumber("111222333");
+    	person1.setEmail("Kowalski@kappa.pl");
+    	
+    	
+    	person2.setName("Wojciech");
+    	person2.setSurname("Wojcik");
+    	person2.setBirthDate("12-11-1982");
+    	person2.setPersonalIdentityNumber("821112909");
+    	person2.setPhoneNumber("333111222");
+    	person2.setEmail("Wojcik@kappa.pl");
+    	
+    	
+    	Doctor doctor = new Doctor();
+    	
+    	
+    	doctor.setPosition("szef");
+    	doctor.setStatusDoctor(StatusDoctor.free);
+    	doctor.setPersonId(1);
+    	
     	
     	PatientCard patientCard = new PatientCard();
-    	patientCard.setRoomId(123);
+    	
+    	
+    	patientCard.setRoomNumber(112);
     	patientCard.setStatus(Status.residency);
-    	patientCard.setHistoryOfDiseases("brak");
-    	patientCard.setAilments("100");
+    	patientCard.setHistoryOfDiseases("Pierwsza wizyta w szpitalu");
+    	patientCard.setAilments("zlamanie otwarte prawej nogi");
+    	patientCard.setPersonId(2);
+    	patientCard.setDoctorId(1);
+    	
+    	try {
+			Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
+			IUnitOfWork uow = new UnitOfWork(connection);
+			IRepositoryCatalog catalog = new RepositoryCatalog(connection, uow);
+			catalog.People().add (person1);
+			catalog.People().add (person2);
+			catalog.Doctors().add(doctor);
+			catalog.PatientCards().add(patientCard);
+			catalog.save();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     	
     	
-    	try{
-    
-    	Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
-		IUnitOfWork uow = new UnitOfWork(connection);
-		IRepositoryCatalog catalog = new RepositoryCatalog(connection, uow);
-		catalog.Person().add(person);
-		catalog.Doctor().add(doctor);
-		catalog.PatientCard().add(patientCard);
-		catalog.save();
-    	}catch(SQLException e){
-    		
-    		e.printStackTrace();
-    	}
+    	
+    	
+    	
+    	
+    	
     	
     	}
 }

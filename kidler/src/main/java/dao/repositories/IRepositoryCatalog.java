@@ -1,12 +1,17 @@
 package dao.repositories;
 
-public interface IRepositoryCatalog {
+import java.sql.SQLException;
 
-	public IDebtRepository Debt();
-	public IDoctorRepository Doctor();
-	public IEnumDictionariesRepository EnumDictionary();
-	public IOperationRepository Operation();
-	public IPatientCardRepository PatientCard();
-	public IPersonRepository Person();
-	public void save();
+public interface IRepositoryCatalog {
+	
+	public IDoctorRepository Doctors();
+	
+	public IEnumDictionariesRepository Dictionaries();
+	
+	public IPatientCardRepository PatientCards();
+	
+	public IPersonRepository People();
+	
+	public void save() throws SQLException;
+
 }

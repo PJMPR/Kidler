@@ -1,22 +1,38 @@
 package domain.model;
 
-public class Doctor extends Person implements IHaveId{
+public class Doctor implements IHaveId{
 	
+	private int id;
 	private String position;
-	private int salary;
+	private StatusDoctor statusDoctor;
+	private int PersonId;
 	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getPosition() {
 		return position;
 	}
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public int getSalary() {
-		return salary;
+	public StatusDoctor getStatusDoctor() {
+		return statusDoctor;
 	}
-	public void setSalary(int salary) {
-		this.salary = salary;
+	public void setStatusDoctor(StatusDoctor statusDoctor) {
+		this.statusDoctor = statusDoctor;
 	}
+	public int getPersonId() {
+		return PersonId;
+	}
+	public void setPersonId(int personId) {
+		PersonId = personId;
+	}
+
 
 
 }

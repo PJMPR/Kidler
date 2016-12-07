@@ -4,22 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import domain.model.PatientCard;
+import domain.model.Status;
 
 public class PatientCardMapper implements IMapResultSetIntoEntity<PatientCard>{
 
 	public PatientCard map(ResultSet rs) throws SQLException {
 		PatientCard patientCard = new PatientCard();
 		patientCard.setId(rs.getInt("id"));
-		patientCard.setName(rs.getString("name"));
-		patientCard.setSurname(rs.getString("surname"));
-		patientCard.setBirthDate(rs.getString("birthDate"));
-		patientCard.setPersonalIdentityNumber(rs.getString("personalIdentityNumber"));
-		patientCard.setPhoneNumber(rs.getString("phoneNumber"));
-		patientCard.setEmail(rs.getString("email"));
-		patientCard.setRoomId(rs.getInt("roomId"));
-		//result.setStatus(rs.getString("status"));
+		patientCard.setRoomNumber(rs.getInt("roomNumber"));
+		patientCard.setStatus((Status)rs.getObject("status"));
 		patientCard.setHistoryOfDiseases(rs.getString("historyOfDiseases"));
-		patientCard.setAilments(rs.getString("Ailments"));
+		patientCard.setAilments(rs.getString("ailments"));
+		patientCard.setPersonId(rs.getInt("PersonId"));
+		patientCard.setDoctorId(rs.getInt("DoctorId"));
 		return patientCard;
 	}
 	

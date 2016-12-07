@@ -1,17 +1,26 @@
 package domain.model;
 
-public class PatientCard extends Person implements IHaveId{
+public class PatientCard implements IHaveId{
 	
-	private int roomId;
+	private int id;
+	private int roomNumber;
 	private Status status;
 	private String historyOfDiseases;
 	private String ailments;
+	private int personId;
+	private int doctorId;
 	
-	public int getRoomId() {
-		return roomId;
+	public int getId() {
+		return id;
 	}
-	public void setRoomId(int roomId) {
-		this.roomId = roomId;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+	public void setRoomNumber(int roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 	public Status getStatus() {
 		return status;
@@ -30,6 +39,18 @@ public class PatientCard extends Person implements IHaveId{
 	}
 	public void setAilments(String ailments) {
 		this.ailments = ailments;
+	}
+	public int getPersonId() {
+		return personId;
+	}
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
+	public int getDoctorId() {
+		return doctorId;
+	}
+	public void setDoctorId(int doctorId) {
+		this.doctorId = doctorId;
 	}
 	
 
