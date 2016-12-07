@@ -49,13 +49,13 @@ public class DoctorRepository extends RepositoryBase <Doctor> implements IDoctor
 	@Override
 	protected String insertSql() {
 		// TODO Auto-generated method stub
-		return "INSERT INTO doctor (name, surname, birthDate, personalIdentityNumber, phoneNumber, email, position, salary) VALUES (?,?,?,?,?,?,?,?)";
+		return "INSERT INTO doctor (position, statusDoctor, personId) VALUES (?,?,?)";
 	}
 
 	@Override
 	protected String updateSql() {
 		// TODO Auto-generated method stub
-		return "UPDATE doctor SET (name, surname, birthDate, personalIdentityNumber, phoneNumber, email, position, salary)=(?,?,?,?,?,?,?,?) where id=?";
+		return "UPDATE doctor SET (position, statusDoctor, personId)=(?,?,?) where id=?";
 	}
 
 	@Override

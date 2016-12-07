@@ -22,8 +22,8 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 			IMapResultSetIntoEntity <PatientCard> mapper, IUnitOfWork uow) {
 		super(connection,mapper, uow);
 		try {
-			getPersonId = connection.prepareStatement(getNameSql());
-			getDoctorId = connection.prepareStatement(getSurnameSql());
+			getPersonId = connection.prepareStatement(getPersonIdSql());
+			getDoctorId = connection.prepareStatement(getDoctorIdSql());
 			getRoomNumber= connection.prepareStatement(getRoomIdSql());
 
 		} catch (SQLException e) {
@@ -90,15 +90,15 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 	}
 
 
-	private String getSurnameSql() {
+	private String getPersonIdSql() {
 		// TODO Auto-generated method stub
-		return "SELECT * FROM patientCard where surname = ?";
+		return "SELECT * FROM patientCard where personId = ?";
 	}
 
 
-	private String getNameSql() {
+	private String getDoctorIdSql() {
 		// TODO Auto-generated method stub
-		return "SELECT * FROM patientCard where name = ?";
+		return "SELECT * FROM patientCard where doctorId = ?";
 	}
 
 
