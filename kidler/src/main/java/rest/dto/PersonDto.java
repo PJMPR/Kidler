@@ -1,29 +1,10 @@
-package domain.model;
+package rest.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+@XmlRootElement
+public class PersonDto {
 
-@Entity
-@Table(name="player")
-@NamedQueries({
-       @NamedQuery(name = "person.all", query = "SELECT p FROM Person p"),
-       @NamedQuery(name = "person.id", query = "SELECT p FROM Person p WHERE p.id=:id")
-})
-
-public class Person implements IHaveId{
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
     private String name;
     private String surname;
@@ -89,4 +70,3 @@ public class Person implements IHaveId{
 
 
 }
-
