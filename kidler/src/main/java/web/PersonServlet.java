@@ -15,9 +15,7 @@ import domain.model.Person;
 public class PersonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	protected void doGet(HttpServletRequest request,
-						 HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Person person = new Person();
 		person.setName(request.getParameter("name"));
@@ -28,7 +26,7 @@ public class PersonServlet extends HttpServlet {
 		person.setEmail(request.getParameter("email"));
 		HttpSession session = request.getSession();
 		session.setAttribute("person", person);
-		response.sendRedirect("index.html");
+		//response.sendRedirect("index.html");
 		
 	}
 }

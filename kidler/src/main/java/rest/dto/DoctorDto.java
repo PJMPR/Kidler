@@ -1,26 +1,12 @@
-package domain.model;
+package rest.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
-@Entity
-@Table(name="doctor")
-@NamedQueries({
-       @NamedQuery(name = "doctor.all", query = "SELECT p FROM Doctor p"),
-       @NamedQuery(name = "doctor.id", query = "SELECT p FROM Doctor p WHERE p.id=:id")
-})
+import domain.model.StatusDoctor;
 
-public class Doctor implements IHaveId{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@XmlRootElement
+public class DoctorDto {
+
 	private int id;
 	private String position;
 	private StatusDoctor statusDoctor;
@@ -51,7 +37,6 @@ public class Doctor implements IHaveId{
 	public void setPersonId(int personId) {
 		PersonId = personId;
 	}
-
-
-
+	
+	
 }
