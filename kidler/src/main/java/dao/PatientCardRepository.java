@@ -14,9 +14,9 @@ import domain.model.PatientCard;
 
 public class PatientCardRepository extends RepositoryBase <PatientCard> implements IPatientCardRepository {
 	
-	private PreparedStatement getRoomNumber;
 	private PreparedStatement getPersonId;
 	private PreparedStatement getDoctorId;
+	private PreparedStatement getStatus;
 	
 	public PatientCardRepository(Connection connection,
 			IMapResultSetIntoEntity <PatientCard> mapper, IUnitOfWork uow) {
@@ -24,7 +24,7 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 		try {
 			getPersonId = connection.prepareStatement(getPersonIdSql());
 			getDoctorId = connection.prepareStatement(getDoctorIdSql());
-			getRoomNumber= connection.prepareStatement(getRoomIdSql());
+			getStatus= connection.prepareStatement(getStatusSql());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,10 +83,10 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 		
 	}
 
-
-	private String getRoomIdSql() {
+	
+	private String getStatusSql() {
 		// TODO Auto-generated method stub
-		return "SELECT * FROM patientCard where roomNumber = ?";
+		return "SELECT * FROM patientCard where status = ?";
 	}
 
 
@@ -138,12 +138,15 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 	}
 
 
-	public List<PatientCard> fromRoomNumber(int roomNumber) {
+
+	@Override
+	public List<PatientCard> fromStatus(String status) {
 		// TODO Auto-generated method stub
 		List<PatientCard> patientCard = new ArrayList<PatientCard>();
 		try{
-		getRoomNumber.setInt(1,roomNumber);
-		ResultSet resultSet = getRoomNumber.executeQuery();
+		
+		getStatus.setString(1,status);
+		ResultSet resultSet = getStatus.executeQuery();
 		while(resultSet.next()){
 			patientCard.add(mapper.map(resultSet));
 		}

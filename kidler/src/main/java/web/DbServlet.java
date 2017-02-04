@@ -16,7 +16,6 @@ import dao.RepositoryCatalog;
 import dao.repositories.IRepositoryCatalog;
 import dao.uow.IUnitOfWork;
 import dao.uow.UnitOfWork;
-import domain.model.Doctor;
 import domain.model.PatientCard;
 import domain.model.Person;
 
@@ -38,18 +37,18 @@ public class DbServlet extends HttpServlet {
 		Connection connection;
 		try {
 			connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
+			connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 			IUnitOfWork uow = new UnitOfWork(connection);
 			IRepositoryCatalog catalog = new RepositoryCatalog(connection, uow);
 			HttpSession session = request.getSession();
-			Doctor doctor = (Doctor) session.getAttribute("doctor");
 			Person person = (Person) session.getAttribute("person");
 			PatientCard patientCard = (PatientCard) session.getAttribute("patientCard");
-			catalog.Doctors().add(doctor);
-			catalog.save();
 			catalog.People().add(person);
+			catalog.save();
 			catalog.PatientCards().add(patientCard);
-			
-			
+			catalog.save();
+			session.removeAttribute("player");
+			session.removeAttribute("patientCard");
 			response.sendRedirect("index.html");
 		} catch (SQLException e) {
 		

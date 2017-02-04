@@ -50,7 +50,7 @@ public class App
     	
     	
     	patientCard.setRoomNumber(112);
-    	patientCard.setStatus(Status.residency);
+    	patientCard.setStatus("residency");
     	patientCard.setHistoryOfDiseases("Pierwsza wizyta w szpitalu");
     	patientCard.setAilments("zlamanie otwarte prawej nogi");
     	patientCard.setPersonId(2);

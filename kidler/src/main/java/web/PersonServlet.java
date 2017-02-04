@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import domain.model.PatientCard;
 import domain.model.Person;
 
 @WebServlet("/personServlet")
@@ -18,6 +19,7 @@ public class PersonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Person person = new Person();
+		PatientCard patientCard = new PatientCard();
 		person.setName(request.getParameter("name"));
 		person.setSurname(request.getParameter("surname"));
 		person.setBirthDate(request.getParameter("birthDate"));
@@ -26,7 +28,7 @@ public class PersonServlet extends HttpServlet {
 		person.setEmail(request.getParameter("email"));
 		HttpSession session = request.getSession();
 		session.setAttribute("person", person);
-		//response.sendRedirect("index.html");
+		response.sendRedirect("addPatientCard.jsp");
 		
 	}
 }

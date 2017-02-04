@@ -1,10 +1,28 @@
 package domain.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@Entity
+@Table(name="patientCard")
+@NamedQueries({
+       @NamedQuery(name = "patientCard.all", query = "SELECT p FROM PatientCard p"),
+       @NamedQuery(name = "patientCard.id", query = "SELECT p FROM PatientCard p WHERE p.id=:id")
+})
 public class PatientCard implements IHaveId{
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int roomNumber;
-	private Status status;
+	private String status;
 	private String historyOfDiseases;
 	private String ailments;
 	private int personId;
@@ -22,10 +40,10 @@ public class PatientCard implements IHaveId{
 	public void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public String getHistoryOfDiseases() {
