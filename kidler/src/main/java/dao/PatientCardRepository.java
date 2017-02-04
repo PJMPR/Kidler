@@ -57,6 +57,18 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 		// TODO Auto-generated method stub
 		return "UPDATE patientCard SET (roomNumber, status, historyOfDiseases, ailments, personId, doctorId)=(?,?,?,?,?,?) where id=?";
 	}
+	
+	@Override
+	protected String deleteSql() {	
+		// TODO Auto-generated method stub
+		return "DELETE FROM patientCard WHERE id=?";
+	}
+	
+	@Override
+	protected String selectAllSql() {
+		// TODO Auto-generated method stub
+		return "SELECT * FROM patientCard";
+	}
 
 	@Override
 	protected void setUpdate(PatientCard entity) throws SQLException {

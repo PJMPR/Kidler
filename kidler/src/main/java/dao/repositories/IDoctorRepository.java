@@ -8,7 +8,7 @@ import domain.model.Doctor;
 
 public interface IDoctorRepository extends IRepository<Doctor>{
 	
-	public List<Doctor> fromPosition (String position);
+	public List<Doctor> withPosition (String position);
 	public List<Doctor> withPerson (String person);
 	
 }

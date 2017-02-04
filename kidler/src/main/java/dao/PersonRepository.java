@@ -56,6 +56,18 @@ public class PersonRepository extends RepositoryBase <Person> implements IPerson
 		// TODO Auto-generated method stub
 		return "UPDATE person SET (name, surname, birthDate, personalIdentityNumber, phoneNumber, email)=(?,?,?,?,?,?) where id=?";
 	}
+	
+	@Override
+	protected String deleteSql() {	
+		// TODO Auto-generated method stub
+		return "DELETE FROM person WHERE id=?";
+	}
+	
+	@Override
+	protected String selectAllSql() {
+		// TODO Auto-generated method stub
+		return "SELECT * FROM person";
+	}
 
 	@Override
 	protected void setUpdate(Person entity) throws SQLException {

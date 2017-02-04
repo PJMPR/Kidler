@@ -1,5 +1,6 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="domain.model.StatusDoctor"%>
+<%@page import="domain.model.Position"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
@@ -14,7 +15,19 @@
 <form enctype="text/plain">
 
 Pozycja:<br />
-				<input name = "position" value = "" /> <br />
+				<select name="position">
+                        <%
+                        try {
+                        	List<Position> positions = Arrays.asList(Position.values());
+                           for(Position position:positions){
+                        %><option value="<%=position%>"><%=position%></option>
+                        <%
+                           }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        %>
+                        </select> <br/>
     	Status:<br />
                 <select name="statusDoctor">
                         <%
@@ -28,6 +41,7 @@ Pozycja:<br />
                             e.printStackTrace();
                         }
                         %>
+                        </select> <br/>
 
 				
 		<input type = "submit" formaction="doctorServlet" value = "Utwórz!" /> <br />
