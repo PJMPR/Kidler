@@ -12,8 +12,7 @@ public class DoctorMapper implements IMapResultSetIntoEntity<Doctor>{
 		Doctor doctor = new Doctor();
 		doctor.setId(rs.getInt("id"));
 		doctor.setPosition(rs.getString("position"));
-		doctor.setStatusDoctor((StatusDoctor)rs.getObject("statusDoctor"));
-		doctor.setPersonId(rs.getInt("personId"));
+		doctor.setStatusDoctor(rs.getString("statusDoctor"));
 		
 		return doctor;
 	}

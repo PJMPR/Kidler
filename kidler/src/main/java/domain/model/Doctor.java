@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,8 +24,9 @@ public class Doctor implements IHaveId{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String position;
-	private StatusDoctor statusDoctor;
-	private int PersonId;
+	private String statusDoctor;
+	@ManyToOne
+	private Person person;
 	
 	
 	public int getId() {
@@ -39,19 +41,18 @@ public class Doctor implements IHaveId{
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public StatusDoctor getStatusDoctor() {
+	public String getStatusDoctor() {
 		return statusDoctor;
 	}
-	public void setStatusDoctor(StatusDoctor statusDoctor) {
+	public void setStatusDoctor(String statusDoctor) {
 		this.statusDoctor = statusDoctor;
 	}
-	public int getPersonId() {
-		return PersonId;
+	public Person getPerson() {
+		return person;
 	}
-	public void setPersonId(int personId) {
-		PersonId = personId;
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+		
 	}
 
-
-
-}

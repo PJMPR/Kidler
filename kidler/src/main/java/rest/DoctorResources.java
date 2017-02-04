@@ -17,13 +17,14 @@ import javax.ws.rs.core.Response;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
-import domain.model.PatientCard;
-import rest.dto.PatientCardDto;
+import rest.dto.DoctorDto;
+import domain.model.Doctor;
 
-@Path("/patientCards")
+
+@Path("/doctors")
 @Stateless
-public class PatientCardResources {
-
+public class DoctorResources {
+	
 	Mapper mapper = new DozerBeanMapper();
 	
     @PersistenceContext
@@ -32,18 +33,18 @@ public class PatientCardResources {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(){
-    	List<PatientCardDto> result = new ArrayList<PatientCardDto>();
-    	for(PatientCard p: entityManager.createNamedQuery("patientCard.all",PatientCard.class).getResultList()){
-        	result.add(mapper.map(p, PatientCardDto.class));
+    	List<DoctorDto> result = new ArrayList<DoctorDto>();
+    	for(Doctor p: entityManager.createNamedQuery("activities.all",Doctor.class).getResultList()){
+        	result.add(mapper.map(p, DoctorDto.class));
         }
-        return Response.ok(new GenericEntity<List<PatientCardDto>>(result){}).build();
+        return Response.ok(new GenericEntity<List<DoctorDto>>(result){}).build();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") int id) {
-    	PatientCard result = entityManager.createNamedQuery("patientCard.id", PatientCard.class)
+    	Doctor result = entityManager.createNamedQuery("doctor.id", Doctor.class)
                 .setParameter("id", id)
                 .getSingleResult();
         if (result == null) {
@@ -51,4 +52,5 @@ public class PatientCardResources {
         }
         return Response.ok(result).build();
     }
+	
 }

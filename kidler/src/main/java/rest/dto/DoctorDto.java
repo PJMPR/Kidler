@@ -10,7 +10,6 @@ public class DoctorDto {
 	private int id;
 	private String position;
 	private StatusDoctor statusDoctor;
-	private int PersonId;
 	
 	
 	public int getId() {
@@ -30,12 +29,6 @@ public class DoctorDto {
 	}
 	public void setStatusDoctor(StatusDoctor statusDoctor) {
 		this.statusDoctor = statusDoctor;
-	}
-	public int getPersonId() {
-		return PersonId;
-	}
-	public void setPersonId(int personId) {
-		PersonId = personId;
 	}
 	
 	

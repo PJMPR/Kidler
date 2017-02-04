@@ -3,11 +3,9 @@ package dao;
 import java.sql.Connection;
 
 import dao.mappers.DoctorMapper;
-import dao.mappers.EnumDictionaryMapper;
 import dao.mappers.PatientCardMapper;
 import dao.mappers.PersonMapper;
 import dao.repositories.IDoctorRepository;
-import dao.repositories.IEnumDictionariesRepository;
 import dao.repositories.IPatientCardRepository;
 import dao.repositories.IPersonRepository;
 import dao.repositories.IRepositoryCatalog;
@@ -17,7 +15,6 @@ public class RepositoryCatalog implements IRepositoryCatalog {
 
 	private Connection connection;
 	private IUnitOfWork uow;
-	private EnumDictionaryMapper enumDictionaryMapper = new EnumDictionaryMapper();
 	private DoctorMapper doctorMapper = new DoctorMapper();
 	private PatientCardMapper patientCardMapper = new PatientCardMapper();
 	private PersonMapper personMapper = new PersonMapper();
@@ -30,10 +27,6 @@ public class RepositoryCatalog implements IRepositoryCatalog {
 
 	public IDoctorRepository Doctors() {
 		return new DoctorRepository(connection, doctorMapper, uow);
-	}
-
-	public IEnumDictionariesRepository Dictionaries() {
-		return new EnumDictionaryRepository(connection, enumDictionaryMapper, uow);
 	}
 
 	public IPatientCardRepository PatientCards() {

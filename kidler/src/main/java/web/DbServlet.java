@@ -16,12 +16,13 @@ import dao.RepositoryCatalog;
 import dao.repositories.IRepositoryCatalog;
 import dao.uow.IUnitOfWork;
 import dao.uow.UnitOfWork;
+import domain.model.Doctor;
 import domain.model.PatientCard;
 import domain.model.Person;
 
 
 
-@WebServlet("/DbServlet")
+@WebServlet("/dbServlet")
 public class DbServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,13 +43,16 @@ public class DbServlet extends HttpServlet {
 			IRepositoryCatalog catalog = new RepositoryCatalog(connection, uow);
 			HttpSession session = request.getSession();
 			Person person = (Person) session.getAttribute("person");
-			PatientCard patientCard = (PatientCard) session.getAttribute("patientCard");
+			Doctor doctor = (Doctor) session.getAttribute("doctor");
 			catalog.People().add(person);
 			catalog.save();
-			catalog.PatientCards().add(patientCard);
+			int personId = catalog.People().getLastId();
+			person.setId(personId);
+			doctor.setPerson(person);
+			catalog.Doctors().add(doctor);
 			catalog.save();
-			session.removeAttribute("player");
-			session.removeAttribute("patientCard");
+			session.removeAttribute("person");
+			session.removeAttribute("doctor");
 			response.sendRedirect("index.html");
 		} catch (SQLException e) {
 		

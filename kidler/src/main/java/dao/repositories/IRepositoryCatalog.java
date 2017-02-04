@@ -2,11 +2,11 @@ package dao.repositories;
 
 import java.sql.SQLException;
 
+import domain.model.Person;
+
 public interface IRepositoryCatalog {
 	
 	public IDoctorRepository Doctors();
-	
-	public IEnumDictionariesRepository Dictionaries();
 	
 	public IPatientCardRepository PatientCards();
 	

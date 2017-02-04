@@ -42,15 +42,14 @@ public class App
     	
     	
     	doctor.setPosition("szef");
-    	doctor.setStatusDoctor(StatusDoctor.free);
-    	doctor.setPersonId(1);
+    	doctor.setStatusDoctor(StatusDoctor.free.toString());
     	
     	
     	PatientCard patientCard = new PatientCard();
     	
     	
     	patientCard.setRoomNumber(112);
-    	patientCard.setStatus("residency");
+    	patientCard.setStatus(Status.residency.toString());
     	patientCard.setHistoryOfDiseases("Pierwsza wizyta w szpitalu");
     	patientCard.setAilments("zlamanie otwarte prawej nogi");
     	patientCard.setPersonId(2);

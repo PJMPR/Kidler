@@ -27,7 +27,7 @@ import domain.model.Person;
 import rest.dto.PersonDto;
 
 
-@Path("/person")
+@Path("/people")
 @Stateless
 public class PersonResources {
 

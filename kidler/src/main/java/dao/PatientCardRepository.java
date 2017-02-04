@@ -14,16 +14,13 @@ import domain.model.PatientCard;
 
 public class PatientCardRepository extends RepositoryBase <PatientCard> implements IPatientCardRepository {
 	
-	private PreparedStatement getPersonId;
-	private PreparedStatement getDoctorId;
+
 	private PreparedStatement getStatus;
 	
 	public PatientCardRepository(Connection connection,
 			IMapResultSetIntoEntity <PatientCard> mapper, IUnitOfWork uow) {
 		super(connection,mapper, uow);
 		try {
-			getPersonId = connection.prepareStatement(getPersonIdSql());
-			getDoctorId = connection.prepareStatement(getDoctorIdSql());
 			getStatus= connection.prepareStatement(getStatusSql());
 
 		} catch (SQLException e) {
@@ -39,6 +36,8 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 				+ "roomNumber int," + "status varchar(20),"
 				+ "historyOfDiseases varchar (1000)," + "ailments varchar (500),"
 				+ "personId int," + "doctorId int"
+				+ "FOREIGN KEY (personId) REFERENCES person(id),"
+				+ "FOREIGN KEY (doctorId) REFERENCES doctor(id),"
 				+")";
 	}
 
@@ -88,55 +87,6 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 		// TODO Auto-generated method stub
 		return "SELECT * FROM patientCard where status = ?";
 	}
-
-
-	private String getPersonIdSql() {
-		// TODO Auto-generated method stub
-		return "SELECT * FROM patientCard where personId = ?";
-	}
-
-
-	private String getDoctorIdSql() {
-		// TODO Auto-generated method stub
-		return "SELECT * FROM patientCard where doctorId = ?";
-	}
-
-
-	public List<PatientCard> fromPersonId(int personId) {
-		// TODO Auto-generated method stub
-		List<PatientCard> patientCard = new ArrayList<PatientCard>();
-		try{
-		getPersonId.setInt(1,personId);
-		ResultSet resultSet = getPersonId.executeQuery();
-		while(resultSet.next()){
-			patientCard.add(mapper.map(resultSet));
-		}
-		}
-		catch (SQLException e)
-		{
-		e.printStackTrace();
-		}
-		return patientCard;
-	}
-
-
-	public List<PatientCard> fromDoctorId(int doctorId) {
-		// TODO Auto-generated method stub
-		List<PatientCard> patientCard = new ArrayList<PatientCard>();
-		try{
-		getDoctorId.setInt(1,doctorId);
-		ResultSet resultSet = getDoctorId.executeQuery();
-		while(resultSet.next()){
-			patientCard.add(mapper.map(resultSet));
-		}
-		}
-		catch (SQLException e)
-		{
-		e.printStackTrace();
-		}
-		return patientCard;
-	}
-
 
 
 	@Override

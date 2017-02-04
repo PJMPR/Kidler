@@ -16,17 +16,19 @@ import dao.uow.IUnitOfWorkRepository;
 import domain.model.IHaveId;
 
 public abstract class RepositoryBase<TEntity extends IHaveId> implements
-		IRepository<TEntity>, IUnitOfWorkRepository {
-
-	protected Connection connection;
-
+IRepository<TEntity>, IUnitOfWorkRepository {
+	
 	protected PreparedStatement insert;
 	protected PreparedStatement selectById;
 	protected PreparedStatement update;
 	protected PreparedStatement delete;
 	protected PreparedStatement selectAll;
+	protected PreparedStatement selectLastId;
 	protected IUnitOfWork uow;
 	protected IMapResultSetIntoEntity<TEntity> mapper;
+
+
+	private Connection connection;
 
 	public Connection getConnection() {
 		return connection;
@@ -44,9 +46,22 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements
 			update = connection.prepareStatement(updateSql());
 			delete = connection.prepareStatement(deleteSql());
 			selectAll = connection.prepareStatement(selectAllSql());
+			selectLastId = connection.prepareStatement(selectLastIdSql());
 		} catch (SQLException ex) {				
 			ex.printStackTrace();
 		}
+	}
+	
+	public int getLastId() {
+		try {
+			ResultSet rs = selectLastId.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("id");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return 0;
 	}
 
 	public List<TEntity> getAll() {
@@ -105,7 +120,7 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+			}
 
 	public void persistAdd(Entity entity) {
 		try {
@@ -114,7 +129,7 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-	}
+			}
 
 	public void persistDelete(Entity entity) {
 		try {
@@ -123,7 +138,7 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+			}
 
 	protected String selectByIdSql() {
 		return "SELECT * FROM " + tableName() + " WHERE id=?";
@@ -136,14 +151,17 @@ public abstract class RepositoryBase<TEntity extends IHaveId> implements
 	protected String selectAllSql() {
 		return "SELECT * FROM " + tableName();
 	}
+	
+	protected String selectLastIdSql() {
+		return "SELECT TOP 1 id FROM " + tableName()+ " ORDER BY id DESC";
+	}
 
 	private void createTableIfnotExists() throws SQLException {
 		Statement createTable = this.connection.createStatement();
 
 		boolean tableExists = false;
 
-		ResultSet rs = connection.getMetaData().getTables(null, null, null,
-				null);
+		ResultSet rs = connection.getMetaData().getTables(null, null, null, null);
 
 		while (rs.next()) {
 			if (rs.getString("Table_Name").equalsIgnoreCase(tableName())) {
