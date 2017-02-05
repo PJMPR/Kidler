@@ -8,9 +8,8 @@
 <title>Zatwierdzenie</title>
 </head>
 <body>
-<h1>Wizyta zakonczona</h1>
 <form action="dbSecondServlet" method="get">
-<input type=submit value="Potwierdz">
+<input type=submit value="Potwierdź">
 </form>
 </body>
 </html>

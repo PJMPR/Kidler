@@ -49,13 +49,13 @@ public class PatientCardRepository extends RepositoryBase <PatientCard> implemen
 	@Override
 	protected String insertSql() {
 		// TODO Auto-generated method stub
-		return "INSERT INTO patientCard (roomNumber, status, historyOfDiseases, ailments, personId, doctorId) VALUES (?,?,?,?,?,?)";
+		return "INSERT INTO patientCard (roomNumber, status, historyOfDiseases, ailments, PERSON_ID, DOCTOR_ID) VALUES (?,?,?,?,?,?)";
 	}
 
 	@Override
 	protected String updateSql() {
 		// TODO Auto-generated method stub
-		return "UPDATE patientCard SET (roomNumber, status, historyOfDiseases, ailments, personId, doctorId)=(?,?,?,?,?,?) where id=?";
+		return "UPDATE patientCard SET (roomNumber, status, historyOfDiseases, ailments, PERSON_ID, DOCTOR_ID)=(?,?,?,?,?,?) where id=?";
 	}
 	
 	@Override
