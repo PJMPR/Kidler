@@ -25,8 +25,8 @@ public class PatientCard implements IHaveId{
 	private String status;
 	private String historyOfDiseases;
 	private String ailments;
-	private int personId;
-	private int doctorId;
+	private Person person;
+	private Doctor doctor;
 	
 	public int getId() {
 		return id;
@@ -58,17 +58,17 @@ public class PatientCard implements IHaveId{
 	public void setAilments(String ailments) {
 		this.ailments = ailments;
 	}
-	public int getPersonId() {
-		return personId;
+	public Person getPerson() {
+		return person;
 	}
-	public void setPersonId(int personId) {
-		this.personId = personId;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
-	public int getDoctorId() {
-		return doctorId;
+	public Doctor getDoctor() {
+		return doctor;
 	}
-	public void setDoctorId(int doctorId) {
-		this.doctorId = doctorId;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 	
 

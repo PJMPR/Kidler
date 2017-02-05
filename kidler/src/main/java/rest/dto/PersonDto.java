@@ -1,5 +1,6 @@
 package rest.dto;
 
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -12,7 +13,7 @@ public class PersonDto {
     private String birthDate;
     private String personalIdentityNumber;
     private String phoneNumber;
-    private String email;   
+    private String email; 
     
 	public int getId() {
 		return id;

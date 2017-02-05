@@ -1,7 +1,6 @@
 package rest.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
 import domain.model.Status;
 
 @XmlRootElement
@@ -12,8 +11,6 @@ public class PatientCardDto {
 	private Status status;
 	private String historyOfDiseases;
 	private String ailments;
-	private int personId;
-	private int doctorId;
 	
 	public int getId() {
 		return id;
@@ -45,17 +42,4 @@ public class PatientCardDto {
 	public void setAilments(String ailments) {
 		this.ailments = ailments;
 	}
-	public int getPersonId() {
-		return personId;
-	}
-	public void setPersonId(int personId) {
-		this.personId = personId;
-	}
-	public int getDoctorId() {
-		return doctorId;
-	}
-	public void setDoctorId(int doctorId) {
-		this.doctorId = doctorId;
-	}
-	
 }

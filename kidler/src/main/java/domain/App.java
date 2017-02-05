@@ -52,8 +52,6 @@ public class App
     	patientCard.setStatus(Status.residency.toString());
     	patientCard.setHistoryOfDiseases("Pierwsza wizyta w szpitalu");
     	patientCard.setAilments("zlamanie otwarte prawej nogi");
-    	patientCard.setPersonId(2);
-    	patientCard.setDoctorId(1);
     	
     	try {
 			Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
