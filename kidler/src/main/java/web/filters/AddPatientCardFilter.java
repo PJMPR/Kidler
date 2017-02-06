@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import domain.model.PatientCard;
 
-@WebFilter(urlPatterns = {"/finalSecond.jsp"})
+@WebFilter("/finalSecond.jsp")
 public class AddPatientCardFilter implements Filter {
 
 	public AddPatientCardFilter() {

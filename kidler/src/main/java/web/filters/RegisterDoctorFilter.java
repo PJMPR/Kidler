@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import domain.model.Doctor;
 
-@WebFilter(urlPatterns = {"/final.jsp"})
+@WebFilter("/final.jsp")
 public class RegisterDoctorFilter implements Filter {
 
 	public RegisterDoctorFilter() {
